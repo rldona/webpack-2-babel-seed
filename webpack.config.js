@@ -1,12 +1,21 @@
-const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
-const path = require('path');
+var webpack           = require('webpack');
+var path              = require('path');
+var ExtractText       = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const config = {
-  entry: './src/index.js',
+var VENDOR_LIBS = [
+  'react'
+];
+
+var config = {
+  entry: {
+    bundle: './src/index.js',
+    vendor: VENDOR_LIBS
+  },
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
-    publicPath: '../build/'
+    path: path.join(__dirname, 'dist'),
+    // bundle.js && vendor.js output name + hash
+    filename: '[name].[chunkhash].js'
   },
   module: {
     // Babel config
@@ -21,7 +30,7 @@ const config = {
       // Sass config
       {
         test: /\.scss$/,
-        use: ExtractTextWebpackPlugin.extract({
+        use: ExtractText.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']
         })
@@ -32,18 +41,24 @@ const config = {
         use: [
           {
             loader: 'file-loader',
-            options: {
-              limit: 40000
-            }
+            options: { limit: 40000 }
           },
           'image-webpack-loader'
         ]
       }
     ]
   },
-  // Create independient css file from all js files
   plugins: [
-    new ExtractTextWebpackPlugin('style.css')
+    // Create style file from the JS files what import fragments of SCSS or CSS
+    new ExtractText('style.css'),
+    // Load from cache vendor file
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['vendor', 'manifest']
+    }),
+    // Generate index.html with bundle & vendor files
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    })
   ]
 };
 
