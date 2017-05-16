@@ -5,7 +5,17 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && webpack",
+
+    "build:client:dev": "npm run clean && webpack",
+    "build:client:pro": "npm run clean && webpack -p",
+
+    "start:client": "npm run build:client:dev & webpack-dev-server",
+
+    "start:server:dev": "NODE_ENV=development node ./src/server/index.js",
+    "start:server:pro": "NODE_ENV=production node ./src/server/index.js",
+
+    "deploy:surge": "surge -p dist",
+
     "serve": "webpack-dev-server"
   },
   "repository": {
