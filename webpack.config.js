@@ -9,11 +9,11 @@ var VENDOR_LIBS = [
 
 var config = {
   entry: {
-    bundle: './src/index.js',
+    bundle: './src/client/index.js',
     vendor: VENDOR_LIBS
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist/client'),
     // bundle.js && vendor.js output name + hash
     filename: '[name].[chunkhash].js'
   },
@@ -57,7 +57,10 @@ var config = {
     }),
     // Generate index.html with bundle & vendor files
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/client/index.html'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
   ]
 };
