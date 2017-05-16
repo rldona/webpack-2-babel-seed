@@ -1,36 +1,50 @@
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 const config = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '../build/'
   },
   module: {
+    // Babel config
     rules: [
       {
+        test: /\.js$/,
         use: {
           loader: 'babel-loader'
         },
-        test: /\.js$/,
         exclude: /(node_modules)/
       },
+      // Sass config
       {
+        test: /\.scss$/,
+        use: ExtractTextWebpackPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        })
+      },
+      // Image & url config
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
         use: [
           {
-            loader: "style-loader" // creates style nodes from JS strings
+            loader: 'file-loader',
+            options: {
+              limit: 40000
+            }
           },
-          {
-            loader: "css-loader" // translates CSS into CommonJS
-          },
-          {
-            loader: "sass-loader" // compiles Sass to CSS
-          }
-        ],
-        test: /\.scss$/,
+          'image-webpack-loader'
+        ]
       }
     ]
-  }
+  },
+  // Create independient css file from all js files
+  plugins: [
+    new ExtractTextWebpackPlugin('style.css')
+  ]
 };
 
 module.exports = config;

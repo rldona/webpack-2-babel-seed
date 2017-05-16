@@ -60,10 +60,10 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "../build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -84,6 +84,18 @@ exports.default = sum;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "43beff340753efa2ee9ca6e29ad09f0a.png";
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -93,13 +105,21 @@ var _sum = __webpack_require__(0);
 
 var _sum2 = _interopRequireDefault(_sum);
 
-__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./style.scss\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+__webpack_require__(1);
+
+var _whatIsWebpack = __webpack_require__(2);
+
+var _whatIsWebpack2 = _interopRequireDefault(_whatIsWebpack);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var total = (0, _sum2.default)(1, 1);
-
 console.log(total);
+
+var image = document.createElement('img');
+image.src = _whatIsWebpack2.default;
+
+document.body.appendChild(image);
 
 /***/ })
 /******/ ]);
