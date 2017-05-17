@@ -18,4 +18,4 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-app.listen(3300, () => console.log('\n*** Server listening on port 3300 ***'));
+app.listen(process.env.PORT || 3300, () => console.log('\n*** Server listening on port 3300 ***'));
