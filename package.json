@@ -1,6 +1,6 @@
 {
   "name": "webpack-2-babel-seed",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Webpack 2 Babel Seed",
   "main": "index.js",
   "scripts": {
